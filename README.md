@@ -13,7 +13,9 @@ First, Add following lines to your buildscripts:
 
 ```groovy
 buildscript {
-  mki_version = '0.0.3'
+  ext {
+    mki_version = '0.0.3'
+  }
 }
 ```
 
