@@ -81,3 +81,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+<a href="https://donorbox.org/moshi-kotlin-ignore"><img src="https://d1iczxrky3cnb2.cloudfront.net/button-small-blue.png" /></a>
+
+<a href="https://www.patreon.com/S64"><img src="https://c5.patreon.com/external/logo/become_a_patron_button.png"/></a>
