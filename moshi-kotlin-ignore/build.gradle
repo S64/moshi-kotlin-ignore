@@ -1,0 +1,69 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+group = artifact_group
+version = mki_version_name
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "com.squareup.moshi:moshi:${moshi_version}"
+    implementation "com.squareup.moshi:moshi-kotlin:${moshi_version}"
+
+}
+
+bintray {
+    user = bintray_user
+    key = bintray_api_key
+
+    configurations = default_configurations
+    publications = ['MyPublication']
+
+    pkg {
+        repo = default_repo
+        name = 'moshi-kotlin-ignore'
+        licenses = default_licenses
+        websiteUrl = site_url
+        issueTrackerUrl = issues_url
+        vcsUrl = git_url
+        labels = shared_labels
+        publicDownloadNumbers = true
+
+        version {
+            name = mki_version_name
+            released = toIsoDateFormat(new Date())
+            vcsTag = mki_version_name
+        }
+    }
+
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+
+            artifact sourcesJar
+            artifact javadocJar
+
+            artifactId 'moshi-kotlin-ignore'
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar, javadocJar
+}

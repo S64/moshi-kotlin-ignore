@@ -1,0 +1,67 @@
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    ext {
+        mki_version_name = '0.0.3'
+
+        // region
+        artifact_group = 'jp.s64.kotiln'
+        site_url = 'https://github.com/S64/moshi-kotlin-ignore'
+        git_url = 'https://github.com/S64/moshi-kotlin-ignore.git'
+        issues_url = 'https://github.com/S64/moshi-kotlin-ignore/issues'
+        shared_labels = ['kotlin']
+        default_configurations = ['archives']
+        default_repo = 'maven'
+        default_licenses = ['Apache-2.0']
+        // endregion
+
+        kotlin_version = '1.1.51'
+        moshi_version = '1.5.0'
+
+        // region
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+        bintray_user = properties.getProperty('bintray.user')
+        bintray_api_key = properties.getProperty('bintray.api_key')
+        // endregion
+    }
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+    }
+
+}
+
+allprojects {
+
+    repositories {
+        mavenCentral()
+    }
+
+    tasks.withType(JavaCompile) {
+        targetCompatibility = JavaVersion.VERSION_1_7
+        sourceCompatibility = JavaVersion.VERSION_1_7
+    }
+
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+def toIsoDateFormat(Date date) {
+    DateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZ")
+    return isoFormat.format(date)
+}
